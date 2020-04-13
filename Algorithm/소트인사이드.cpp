@@ -1,5 +1,8 @@
-#include <stdio.h>
 #include <math.h>
+#include <iostream>
+
+using namespace std;
+
 void main()
 {
 	int num = 2143;
@@ -7,7 +10,7 @@ void main()
 	int k = 1;
 	int digit = 1;
 
-	printf("- Number: %d\n", num);
+	cout<< "- Number: " << num <<endl;
 
 
 	/*digit*/
@@ -27,12 +30,12 @@ void main()
 	int newNum = 0;
 	for (int i = 0; i < digit; i++) {
 		int n = (int)(num / pow(10, i)) % 10;
-		printf("%d ", n);
+		//cout << n;
 		newNum = newNum + (n * pow(10, digit-i-1));
 	}
 
-	printf("\n[Result]\n");
-	printf("%d", newNum);
+	cout << "\n[Result]" << endl;
+	cout << newNum << endl;
 
 	
 }
