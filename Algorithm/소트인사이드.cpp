@@ -3,15 +3,14 @@
 
 using namespace std;
 
-void main()
+int main()
 {
-	int num = 2143;
+	int num;
 
 	int k = 1;
 	int digit = 1;
 
-	cout<< "- Number: " << num <<endl;
-
+	cin >> num;
 
 	/*digit*/
 	while (1) {
@@ -34,10 +33,9 @@ void main()
 		newNum = newNum + (n * pow(10, digit-i-1));
 	}
 
-	cout << "\n[Result]" << endl;
 	cout << newNum << endl;
 
-	
+	return 0;
 }
 
 /*

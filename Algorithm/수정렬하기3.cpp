@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void main()
+int main()
 {
 	int num;
 
@@ -43,9 +43,10 @@ void main()
 	}
 	*/
 
-	cout << "[Result]" << endl;
 	for (int i = 0; i < num; i++)
 	{
 		cout << array[i] << endl;
 	}
+
+	return 0;
 }
