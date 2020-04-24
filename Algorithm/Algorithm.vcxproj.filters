@@ -66,5 +66,14 @@
     <ClCompile Include="11004.cpp">
       <Filter>소스 파일\BaekJoon</Filter>
     </ClCompile>
+    <ClCompile Include="10825.cpp">
+      <Filter>소스 파일\BaekJoon</Filter>
+    </ClCompile>
+    <ClCompile Include="소스.cpp">
+      <Filter>소스 파일\BaekJoon</Filter>
+    </ClCompile>
+    <ClCompile Include="counting_sort.cpp">
+      <Filter>소스 파일\Lecture</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
