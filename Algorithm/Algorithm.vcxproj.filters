@@ -42,9 +42,6 @@
     <ClCompile Include="1427.c">
       <Filter>소스 파일\BaekJoon</Filter>
     </ClCompile>
-    <ClCompile Include="10989.c">
-      <Filter>소스 파일\BaekJoon</Filter>
-    </ClCompile>
     <ClCompile Include="merge_sort.c">
       <Filter>소스 파일\Lecture</Filter>
     </ClCompile>
@@ -52,9 +49,6 @@
       <Filter>소스 파일\BaekJoon</Filter>
     </ClCompile>
     <ClCompile Include="11650.c">
-      <Filter>소스 파일\BaekJoon</Filter>
-    </ClCompile>
-    <ClCompile Include="1181.c">
       <Filter>소스 파일\BaekJoon</Filter>
     </ClCompile>
     <ClCompile Include="sort_function1.cpp">
@@ -80,6 +74,24 @@
     </ClCompile>
     <ClCompile Include="heap_sort.c">
       <Filter>소스 파일\Lecture</Filter>
+    </ClCompile>
+    <ClCompile Include="1181.cpp">
+      <Filter>소스 파일\BaekJoon</Filter>
+    </ClCompile>
+    <ClCompile Include="1431.cpp">
+      <Filter>소스 파일\BaekJoon</Filter>
+    </ClCompile>
+    <ClCompile Include="10989.cpp">
+      <Filter>소스 파일\BaekJoon</Filter>
+    </ClCompile>
+    <ClCompile Include="stack.cpp">
+      <Filter>소스 파일\Lecture</Filter>
+    </ClCompile>
+    <ClCompile Include="10828.cpp">
+      <Filter>소스 파일\BaekJoon</Filter>
+    </ClCompile>
+    <ClCompile Include="10845.cpp">
+      <Filter>소스 파일\BaekJoon</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

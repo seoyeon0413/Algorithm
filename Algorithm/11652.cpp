@@ -7,7 +7,7 @@ int main()
 {
 	int n;
 	int card[1000];
-	int count[1000];
+	int index[1000];
 
 	cin >> n;
 
@@ -15,29 +15,41 @@ int main()
 		cin >> card[i];
 	}
 
-	for (int i = 0; i < n; i++) {
-		count[i] = 0;
-	}
-
-	for (int i = 0; i < n; i++) {
-		count[card[i] - 1]++;
-	}
-
-	//sort(card, card + n);
+	sort(card, card + n);
 	
 	for (int i = 0; i < n; i++) {
-		cout << count[i] << ' ';
+		cout << card[i] << ' ';
 	}
 
+	int j = 0;
 	for (int i = 0; i < n; i++) {
-		if (count[i] != 0) {
-			for (int j = 0; j < count[i]; j++) {
-				printf("%d ", i + 1);
-			}
+		if (card[i] != card[i + 1]) {
+			index[j] = i;
+			j++;
 		}
 	}
-	
 
+	for (int i = 0; i < j; i++) {
+		if (i == 0) {
+			index[i] = index[i] + 1;
+		}
+		else if (i == 1) {
+			index[i] = index[i] - index[i - 1] + 1;
+		}
+		else {
+			index[i] = index[i] - index[i - 1];
+		}
+	}
+
+	cout << endl;
+	for (int i = 0; i < j; i++) {
+		cout << index[i] << ' ';
+	}
+
+
+
+
+	//2 5
 	return 0;
 }
 /*
