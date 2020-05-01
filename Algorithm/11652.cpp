@@ -1,66 +1,35 @@
-#include <iostream>
-#include <algorithm>
+#include<stdio.h>
+#include<algorithm>
 
 using namespace std;
 
-int main()
-{
-	int n;
-	int card[1000];
-	int index[1000];
+int main() {
+    int n;
+    scanf("%d", &n);
 
-	cin >> n;
+    long long int arr[100000];
+    for (int i = 0; i < n; i++) {
+        scanf("%lld", &arr[i]);
+    }
 
-	for (int i = 0; i < n; i++) {
-		cin >> card[i];
-	}
+    sort(arr, arr + n);
 
-	sort(card, card + n);
-	
-	for (int i = 0; i < n; i++) {
-		cout << card[i] << ' ';
-	}
+    int maxIndex = 0;
+    int maxCount = 1;
+    int curCount = 1;
+    for (int i = 1; i < n; i++) {
+        if (arr[i] == arr[i - 1]) {
+            curCount++;
+        }
+        else {
+            curCount = 1;
+        }
+        if (curCount > maxCount) {
+            maxCount = curCount;
+            maxIndex = i;
+        }
+    }
+    printf("%lld ", arr[maxIndex]);
 
-	int j = 0;
-	for (int i = 0; i < n; i++) {
-		if (card[i] != card[i + 1]) {
-			index[j] = i;
-			j++;
-		}
-	}
-
-	for (int i = 0; i < j; i++) {
-		if (i == 0) {
-			index[i] = index[i] + 1;
-		}
-		else if (i == 1) {
-			index[i] = index[i] - index[i - 1] + 1;
-		}
-		else {
-			index[i] = index[i] - index[i - 1];
-		}
-	}
-
-	cout << endl;
-	for (int i = 0; i < j; i++) {
-		cout << index[i] << ' ';
-	}
-
-
-
-
-	//2 5
-	return 0;
+    return 0;
 }
-/*
-5
-1
-3
-1
-3
-1
-
-0 -> 1 : 3
-1 -> 2 : 2
-
-*/
