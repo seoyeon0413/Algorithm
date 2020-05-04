@@ -105,5 +105,20 @@
     <ClCompile Include="14502.cpp">
       <Filter>소스 파일\BaekJoon</Filter>
     </ClCompile>
+    <ClCompile Include="4811.cpp">
+      <Filter>소스 파일\BaekJoon</Filter>
+    </ClCompile>
+    <ClCompile Include="kruskal_algorithm.cpp">
+      <Filter>소스 파일\Lecture</Filter>
+    </ClCompile>
+    <ClCompile Include="traversal.cpp">
+      <Filter>소스 파일\Lecture</Filter>
+    </ClCompile>
+    <ClCompile Include="dynamic_programming.cpp">
+      <Filter>소스 파일\Lecture</Filter>
+    </ClCompile>
+    <ClCompile Include="3986.cpp">
+      <Filter>소스 파일\BaekJoon</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
