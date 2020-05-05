@@ -1,19 +1,42 @@
 #include <iostream>
 #include <algorithm>
 #include <stack>
-#include <string>
 
 using namespace std;
 
-stack<char> s;
 int checkGoodWord(string str) {
-	int check = 0;	//맞으면 1, 틀리면 0
+	//맞으면 1, 틀리면 0
+	stack<char> s;
 
-	if (str[0] == 'A') {
-		s.push('A');
+	if ((str.size() % 2) != 0) {	//길이가 홀수면 바로 틀림
+		return 0;
 	}
+	else {
+		for (int i = 0; i < str.size(); i++) {
+			if (s.empty()) {	//stack이 비어있으면 무조건 push
+				s.push(str[i]);
+				//cout << str[i] << endl;
+				continue;
+			}
+			else {
+				if (str[i] != s.top()) {	//다르면
+					s.push(str[i]);
+					//cout << "다르면: " << str[i] << endl;
+				}
+				else {	//같으면
+					s.pop();
+				}
+			}
+		}
 
-	return check;
+		if (s.empty()) {	//비어있으면
+			return 1;
+		}
+		else {	//비어있지 않으면
+			return 0;
+		}
+	}
+	
 }
 int main()
 {
@@ -28,7 +51,7 @@ int main()
 		result += checkGoodWord(str[i]);
 	}
 
-
+	cout << result;
 
 	return 0;
 }

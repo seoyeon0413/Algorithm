@@ -47,7 +47,6 @@ long long catalan(int n) {
 	return binomial(bin, 2 * n, n) - binomial(bin, 2 * n, n + 1);
 }
 */
-int bin[51][51];
 
 unsigned long int catalan(unsigned int n)
 {
