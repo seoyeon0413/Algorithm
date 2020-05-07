@@ -123,5 +123,17 @@
     <ClCompile Include="9205.cpp">
       <Filter>소스 파일\BaekJoon</Filter>
     </ClCompile>
+    <ClCompile Include="11727.cpp">
+      <Filter>소스 파일\BaekJoon</Filter>
+    </ClCompile>
+    <ClCompile Include="11726.cpp">
+      <Filter>소스 파일\BaekJoon</Filter>
+    </ClCompile>
+    <ClCompile Include="2133.cpp">
+      <Filter>소스 파일\BaekJoon</Filter>
+    </ClCompile>
+    <ClCompile Include="14852.cpp">
+      <Filter>소스 파일\BaekJoon</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

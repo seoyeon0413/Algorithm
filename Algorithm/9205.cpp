@@ -1,15 +1,17 @@
 #include <iostream>
 #include <algorithm>
-#include <vector>
+#include <cstdlib>
 
 using namespace std;
 
 typedef struct coordinate {
 	int x;
 	int y;
+	bool check = false;
 }C ;
 
-vector <C> cood[105];
+C cs[101];	//convenient Store coordinate, 첫번째 좌표는 집
+C rf;		//rock festival coordinate
 
 int distance(C a, C b) {
 	int d = abs(a.x - b.x) + abs(a.y - b.y);
@@ -17,37 +19,41 @@ int distance(C a, C b) {
 	return d;
 }
 
-string happyORSad(int num, C house, C cStore[], C rockF) {
-	int beer = 20;
-
-	if (distance(house, rockF) <= beer * 50) {	//집에서 락페스티벌까지 한번에 갈 수 있는 경우
+string happyORSad(int num, int index) {
+	if (distance(cs[index], rf) <= 1000) {	//집에서 락페스티벌까지 한번에 갈 수 있는 경우
 		return "happy";
 	}
-	
-	
 
+	for (int i = 0; i < num; i++) {
+		if ((distance(cs[i], rf) <= 1000) && (cs[i].check == false)) {
+			cs[i].check = true;
+		}
+		else {
+			index++;
+			return happyORSad(num, index);
+		}
+	}
+
+	return "sad";
 }
 
 int main(void)
 {
 	int t, n;
-	C h;		//house coordinate
-	C cs[101];	//convenient Store coordinate
-	C rf;		//rock festival coordinate
 	string result[51];
 
 	cin >> t;
 	for (int i = 0; i < t; i++) {
 		cin >> n;
-		cin >> h.x >> h.y;
-
+		
+		n++;	//집까지 포함
 		for (int j = 0; j < n; j++) {
-			cin >> cs[i].x >> cs[i].y;
+			cin >> cs[j].x >> cs[j].y;
 		}
 
 		cin >> rf.x >> rf.y;
 
-		result[i] = happyORSad(n, h, cs, rf);
+		result[i] = happyORSad(n, 0);
 	}
 
 

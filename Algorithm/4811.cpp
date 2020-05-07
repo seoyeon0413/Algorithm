@@ -47,25 +47,28 @@ long long catalan(int n) {
 	return binomial(bin, 2 * n, n) - binomial(bin, 2 * n, n + 1);
 }
 */
+long long int c[1001];
 
-unsigned long int catalan(unsigned int n)
+long long int catalan(int n)
 {
 	// Base case 
 	if (n <= 1)
 		return 1;
 
+	if (c[n] != 0)
+		return c[n];
+
 	// catalan(n) is sum of catalan(i)*catalan(n-i-1) 
-	unsigned long int result = 0;
 	for (int i = 0; i < n; i++) {
-		result += catalan(i) * catalan(n - i - 1);
+		c[n] += catalan(i) * catalan(n - i - 1);
 	}
 
-	return result;
+	return c[n];
 }
 
 int main() {
 	int n = 0;
-	long long resultArray[31];
+	long long int resultArray[1001];
 
 	int num = 0;
 	while (1) {
@@ -75,14 +78,17 @@ int main() {
 			break;
 
 		resultArray[num] = catalan(n);
-		//cout << resultArray[num] << endl;
 		num++;
 	}
 
-	for (int j = 0; j < num; j++) {
-		cout << resultArray[j] << endl;
+	for (int i = 0; i < num; i++) {
+		cout << resultArray[i] << endl;
 	}
 
 	return 0;
-
 }
+// dynamic programming을 사용해야지 '시간초과'가 나지 않음.
+/*
+공식 따로 있음...
+Cn = (2n)! / ((n+1)!n!)
+*/
