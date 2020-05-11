@@ -19,28 +19,30 @@ int distance(C a, C b) {
 	return d;
 }
 
-string happyORSad(int num, int index) {
+int r = 0;
+int happyORSad(int num, int index) {	//1 - 성공, 0 - 실패
 	if (distance(cs[index], rf) <= 1000) {	//집에서 락페스티벌까지 한번에 갈 수 있는 경우
-		return "happy";
+		return 1;
 	}
 
-	for (int i = 0; i < num; i++) {
-		if ((distance(cs[i], rf) <= 1000) && (cs[i].check == false)) {
+	for (int i = index; i < num; i++) {
+		if ((distance(cs[index], cs[i]) <= 1000) && (cs[i].check == false)) {	//index = 현재 편의점, i = 다음 편의점
 			cs[i].check = true;
+			r = happyORSad(num, i);
 		}
-		else {
-			index++;
-			return happyORSad(num, index);
+		if (r == 1) {
+			r = 0;
+			return 1;
 		}
 	}
 
-	return "sad";
+	return 0;
 }
 
 int main(void)
 {
 	int t, n;
-	string result[51];
+	int result[101];
 
 	cin >> t;
 	for (int i = 0; i < t; i++) {
@@ -49,6 +51,9 @@ int main(void)
 		n++;	//집까지 포함
 		for (int j = 0; j < n; j++) {
 			cin >> cs[j].x >> cs[j].y;
+			if (j == 0) {	//집은 언제나 방문
+				cs[j].check = true;
+			}
 		}
 
 		cin >> rf.x >> rf.y;
@@ -58,7 +63,12 @@ int main(void)
 
 
 	for (int i = 0; i < t; i++) {
-		cout << result[i] << endl;
+		if (result[i] == 1) {
+			cout << "happy" << endl;
+		}
+		else {
+			cout << "sad" << endl;
+		}
 	}
 
 
