@@ -23,6 +23,8 @@ void dijkstra(int start)
 {
 	d[start] = 0;
 	priority_queue<pair<int, int>> pq;	//힙 구조 입니다.
+
+	pq.push(make_pair(start, 0));
 	
 	//가까운 순서대로 처리하므로 큐를 사용합니다.
 	while (!pq.empty()) {
