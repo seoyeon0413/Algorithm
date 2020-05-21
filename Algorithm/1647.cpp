@@ -5,10 +5,13 @@
 
 using namespace std;
 
+bool check[1000001];
+
 int getParent(int set[], int x)
 {
 	if (set[x] == x)
 		return x;
+
 	return getParent(set, set[x]);
 }
 
@@ -34,24 +37,6 @@ int find(int set[], int a, int b)
 		return 0;
 }
 
-int checkSet(int set[], int n)
-{
-	int a = set[0];
-	int b = a;
-	int check = 0;
-	for (int i = 0; i < n; i++) {
-		b = set[i];
-		if (a != b) {
-			check++;
-		}
-	}
-
-	if (check == 2)	//3개그룹 이상
-		return 1;
-	else //2개그룹
-		return 0;
-}
-
 class Edge {
 public:
 	int node[2];
@@ -71,9 +56,8 @@ public:
 int main()
 {
 	int n, m;
-	int set[MAX];
 	vector<Edge> v;
-
+	
 	cin >> n >> m;
 	for (int i = 0; i < m; i++) {
 		int a, b, d;
@@ -83,19 +67,26 @@ int main()
 
 	sort(v.begin(), v.end());
 
+	int set[MAX];
 	for (int i = 0; i < n; i++) {
 		set[i] = i;
 	}
 
 	int sum = 0;
 	for (int i = 0; i < v.size(); i++) {
-		//if (v[i].node[0] == v[v.size()-1].node[0] || v[i].node[1] == v[v.size() - 1].node[0] || v[i].node[0] == v[v.size() - 1].node[1] || v[i].node[1] == v[v.size() - 1].node[1])
-		//	continue;
-
 		if (!find(set, v[i].node[0] - 1, v[i].node[1] - 1)) {
 			sum += v[i].distance;
+			check[i] = true;
 			unionParent(set, v[i].node[0] - 1, v[i].node[1] - 1);
-			cout << checkSet(set, n) << endl;
+		}
+	}
+
+	//연결된 간선들 중에서 가장 큰 간선을 제외함.
+	//정렬이 되어있기 때문에 마지막걸 빼주면 됨.
+	for (int i = v.size() - 1; i >= 0; i--) {
+		if (check[i] == true) {
+			sum -= v[i].distance;
+			break;
 		}
 	}
 
