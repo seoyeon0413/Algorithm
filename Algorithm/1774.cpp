@@ -52,7 +52,7 @@ public:
 	int node[2];
 	double distance;
 
-	Edge(int a, int b, float distance) {
+	Edge(int a, int b, double distance) {
 		this->node[0] = a;
 		this->node[1] = b;
 		this->distance = distance;
@@ -97,7 +97,7 @@ int main()
 
 	sort(v.begin(), v.end());
 
-	float sum = 0;
+	double sum = 0;
 	for (int i = 0; i < v.size(); i++) {
 		if (!find(set, v[i].node[0] - 1, v[i].node[1] - 1)) {
 			sum += v[i].distance;
