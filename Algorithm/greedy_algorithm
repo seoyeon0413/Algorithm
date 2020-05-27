@@ -1,0 +1,31 @@
+/*
+[Greedy Algorithm]
+: 당장 눈 앞에 보이는 최적의 상황만을 쫓는 알고리즘
+- 대표 예시: 거스름 돈을 줄 때 가장 적은 양의 화폐를 주는 것
+- 무조건 큰 경우대로, 무조건 작은 경우대로, 무조건 긴 경우대로, 무조건 짧은 경우대로 등 극단적인 문제에 접근
+- Sorting과 같이 사용.
+- Kruskal Algorithm에서도 사용.
+*/
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	int n, result = 0;
+
+	cin >> n;
+	result += n / 500;
+	n %= 500;
+	result += n / 100;
+	n %= 100;
+	result += n / 50;
+	n %= 50;
+	result += n / 10;
+	n %= 10;
+
+	cout << result;
+
+	return 0;
+}
