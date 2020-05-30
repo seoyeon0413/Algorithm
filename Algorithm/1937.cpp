@@ -1,47 +1,51 @@
 #include <iostream>
-
+#include <algorithm>
 using namespace std;
 
 int bambooGrove[501][501];
+int d[501][501];
 int n;
-int newDays = 0;
 
-int daysToLive(int i, int j, int days)
-{
-	int check = 0;
-	
-	while (check != -1) {
-		if (bambooGrove[i - 1][j] > bambooGrove[i][j]) {
-			check = 1;
-			cout << "- check: " << check << endl;
-			++newDays = daysToLive(i, ++j, ++days);
-		}
-		if (bambooGrove[i][j - 1] > bambooGrove[i][j]) {
-			check = 2;
-			cout << "- check: " << check << endl;
-			++newDays = daysToLive(i, ++j, ++days);
-		}
-		if (bambooGrove[i][j + 1] > bambooGrove[i][j]) {
-			check = 3;
-			cout << "- check: " << check << endl;
-			++newDays = daysToLive(i, ++j, ++days);
-		}
-		if (bambooGrove[i + 1][j] > bambooGrove[i][j]) {
-			check = 4;
-			cout << "- check: " << check << endl;
-			++newDays = daysToLive(i, ++j, ++days);
-		}
+int dfs(int i, int j) {
+	if (d[i][j] != 0)
+		return d[i][j];
 
-		if (check != 1 || check != 2 || check != 3 || check != 4 || check == 0) {
-			check = -1;
-			cout << 'c' << check << endl;
-		}
+	int c[4] = { 0, };
 
-		cout << newDays << endl;
+	if (i - 1 >= 0) {
+		if (bambooGrove[i][j] < bambooGrove[i - 1][j]) {
+			c[0]++;
+			c[0] += dfs(i - 1, j);
+		}
+	}
+	if (i + 1 < n) {
+		if (bambooGrove[i][j] < bambooGrove[i + 1][j]) {
+			c[1]++;
+			c[1] += dfs(i + 1, j);
+		}
+	}
+	if (j - 1 >= 0) {
+		if (bambooGrove[i][j] < bambooGrove[i][j - 1]) {
+			c[2]++;
+			c[2] += dfs(i, j - 1);
+		}
+	}
+	if (j + 1 < n) {
+		if (bambooGrove[i][j] < bambooGrove[i][j + 1]) {
+			c[3]++;
+			c[3] += dfs(i, j + 1);
+		}
 	}
 
+	int m = -1;
+	for (int k = 0; k < 4; k++) {
+		m = max(m, c[k]);
+	}
 
-	return newDays;
+	if (m == 0)
+		return 1;
+
+	return d[i][j] = m;
 }
 
 int main()
@@ -53,21 +57,16 @@ int main()
 		}
 	}
 
-	int max = 0;
+	int m = 0;
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
+			int temp = dfs(i, j);
+			m = max(m, temp);
 
-			cout << "(" << i << ", " << j << ")" << endl;
-
-			int r = daysToLive(i, j, 1);
-			newDays = 0;
-			if(r > max)
-				max = r;
 		}
 	}
 
-	cout << max;
-
+	cout << m;
 
 	return 0;
 }
