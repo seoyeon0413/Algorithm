@@ -20,18 +20,14 @@ int main()
 	char maxElement = ' ';
 	for (int i = 0; i < m; i++) {
 		for (int j = 0; j < n; j++) {
-			if (s[j][i] == 'A') {
+			if (s[j][i] == 'A')
 				a++;
-			}
-			if (s[j][i] == 'T') {
+			if (s[j][i] == 'T')
 				t++;
-			}
-			if (s[j][i] == 'G') {
+			if (s[j][i] == 'G')
 				g++;
-			}
-			if (s[j][i] == 'C') {
+			if (s[j][i] == 'C')
 				c++;
-			}
 		}
 
 		if (a >= t && a >= g && a >= c)
