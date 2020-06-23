@@ -17,9 +17,9 @@ void dfs(int start, int depth) {
 		return;
 	}
 
-	for (int i = start; i < k; i++) {
-		d[depth] = lotto[i];
-		dfs(i + 1, depth + 1);
+	for (int i = start; i < k; i++) {	// 이 부분이 여러줄 만드는 식
+		d[depth] = lotto[i];	// 첫 시작 부분 만들기
+		dfs(i + 1, depth + 1);	// 이 부분이 한줄 만드는 식.
 	}
 }
 
