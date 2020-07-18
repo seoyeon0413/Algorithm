@@ -1,98 +1,94 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
-int min = 9999;
+struct set {
+	int y, x, k, result;
+};
+
+int yp, xp;
 int n, m;
 char map[51][51];
+bool visited[51][51][64];
 int dx[4] = { +1, -1, 0, 0 };	// 동,서
 int dy[4] = { 0, 0, +1, -1 };	// 남,북
 
-bool find(vector<char> k, char e)
+// 열쇠를 가지고 있는지 확인
+bool check_key(int cur_key, char door)
 {
-	for (int i = 0; i < k.size(); i++) {
-		if (k[i] == e)
-			return true;
-	}
-
-	return false;
+	if ((cur_key & (1 << (door - 'A'))) == 0)
+		return false;
+	return true; 
 }
 
-void dfs(int yp, int xp, vector<char> key, int result)
+// 열쇠를 집으면 실행
+int set_key(int cur_key, char value)
 {
-	for (int i = 0; i < 4; i++) {
-		if (yp + dy[i] < 0 || yp + dy[i] >= n || xp + dx[i] < 0 || xp + dx[i] >= m)	// 범위 벗어날 경우 return
-			continue;
+	return cur_key | (1 << (value - 'a'));
+}
 
-		if (map[yp + dy[i]][xp + dx[i]] != '#') {
-			if (map[yp + dy[i]][xp + dx[i]] == '1') {	// 도착할 때, 끝!
-				result++;
-				if (result <= min) {
-					min = result;
-				}
-				cout << "- min:" << min << endl;
-				return;
-			}
-			else if (map[yp + dy[i]][xp + dx[i]] == '0') {	// 도착할 때, 끝!
-				result++;
-				cout << "출발지" << result << endl;
-				//dfs(yp + dy[i], xp + dx[i], key, result);
-			}
-			else if (map[yp + dy[i]][xp + dx[i]] == '.') {
-				result++;
-				cout << "."<< result << endl;
-				dfs(yp + dy[i], xp + dx[i], key, result);
-			}
-			else if (map[yp + dy[i]][xp + dx[i]] >= 'a' && map[yp + dy[i]][xp + dx[i]] <= 'f') {
-				key.push_back(map[yp + dy[i]][xp + dx[i]]);
-				result++;
-				cout << key[0] << ' ';
-				cout << "af" << result << endl;
-				dfs(yp + dy[i], xp + dx[i], key, result);
-			}
-			else if (map[yp + dy[i]][xp + dx[i]] >= 'A' && map[yp + dy[i]][xp + dx[i]] <= 'F') {
-				if (!find(key, map[yp + dy[i]][xp + dx[i]])) {	// 열쇠가 없으면,
-					result++;
-					cout << "AF없" << result << endl;
-					break;
-					//dfs(yp - dy[i], xp - dx[i], key, result);
-				}
-				else {	// 열쇠가 있으면,
-					result++;
-					cout << "AF있" << result << endl;
-					dfs(yp + dy[i], xp + dx[i], key, result);
+int bfs()
+{
+	queue<set> q;
+
+	q.push({yp, xp, 0, 0});
+	visited[yp][xp][0] = true;
+
+	while (!q.empty()) {
+		struct set s = q.front();
+		q.pop();
+
+		for (int i = 0; i < 4; i++) {
+			int ny = s.y + dy[i];
+			int nx = s.x + dx[i];
+
+			if ((ny < 0 || ny >= n || nx < 0 || nx >= m) || visited[ny][nx][s.k] || map[ny][nx] == '#')	// 넘어가는 경우
+				continue;
+
+			// 문을 만난 경우
+			if (map[ny][nx] >= 'A' && map[ny][nx] <= 'F') {
+				// 해당 문에 맞는 열쇠가 있는지 확인
+				if (check_key(s.k, map[ny][nx])) {
+					q.push({ ny, nx, s.k, s.result + 1 });
+					visited[ny][nx][s.k] = true;
 				}
 			}
+			// 열쇠를 집는 경우
+			else if (map[ny][nx] >= 'a' && map[ny][nx] <= 'f') {
+				int key = set_key(s.k, map[ny][nx]);
+				q.push({ ny, nx, key, s.result + 1 });
+				visited[ny][nx][s.k] = true;
+			}
+			// 목적지에 도착한 경우
+			else if (map[ny][nx] == '1')
+				return s.result + 1;
+			else {
+				q.push({ ny, nx, s.k, s.result + 1 });
+				visited[ny][nx][s.k] = true;
+			}
+			
 		}
 	}
+	return -1;
 }
 
 int main()
 {
-	int positionX, positionY;
-
 	cin >> n >> m;
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < m; j++) {
 			cin >> map[i][j];
 
 			if (map[i][j] == '0') {
-				positionY = i;
-				positionX = j;
+				yp = i;
+				xp = j;
 			}
 		}
 	}
 
-	vector<char> key;
-	dfs(positionY, positionX, key, 0);
-
-	if (min == 0) {
-		cout << -1;
-		return -1;
-	}
-
-	cout << min;
+	cout << bfs() << endl;
 
 	return 0;
 }
