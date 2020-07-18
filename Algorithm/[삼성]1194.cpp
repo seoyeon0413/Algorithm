@@ -9,11 +9,21 @@ char map[51][51];
 int dx[4] = { +1, -1, 0, 0 };	// 동,서
 int dy[4] = { 0, 0, +1, -1 };	// 남,북
 
+bool find(vector<char> k, char e)
+{
+	for (int i = 0; i < k.size(); i++) {
+		if (k[i] == e)
+			return true;
+	}
+
+	return false;
+}
+
 void dfs(int yp, int xp, vector<char> key, int result)
 {
 	for (int i = 0; i < 4; i++) {
 		if (yp + dy[i] < 0 || yp + dy[i] >= n || xp + dx[i] < 0 || xp + dx[i] >= m)	// 범위 벗어날 경우 return
-			return;
+			continue;
 
 		if (map[yp + dy[i]][xp + dx[i]] != '#') {
 			if (map[yp + dy[i]][xp + dx[i]] == '1') {	// 도착할 때, 끝!
@@ -27,24 +37,26 @@ void dfs(int yp, int xp, vector<char> key, int result)
 			else if (map[yp + dy[i]][xp + dx[i]] == '0') {	// 도착할 때, 끝!
 				result++;
 				cout << "출발지" << result << endl;
-				dfs(yp - dy[i], xp - dx[i], key, result);
+				//dfs(yp + dy[i], xp + dx[i], key, result);
 			}
 			else if (map[yp + dy[i]][xp + dx[i]] == '.') {
 				result++;
 				cout << "."<< result << endl;
 				dfs(yp + dy[i], xp + dx[i], key, result);
 			}
-			else if (map[yp + dy[i]][xp + dx[i]] >= 'a' && map[yp + dy[i]][xp + dx[i]] >= 'f') {
+			else if (map[yp + dy[i]][xp + dx[i]] >= 'a' && map[yp + dy[i]][xp + dx[i]] <= 'f') {
 				key.push_back(map[yp + dy[i]][xp + dx[i]]);
 				result++;
+				cout << key[0] << ' ';
 				cout << "af" << result << endl;
 				dfs(yp + dy[i], xp + dx[i], key, result);
 			}
-			else if (map[yp + dy[i]][xp + dx[i]] >= 'A' && map[yp + dy[i]][xp + dx[i]] >= 'F') {
-				if (find(key.begin(), key.end(), map[yp + dy[i]][xp + dx[i]]) == key.end()) {	// 열쇠가 없으면,
+			else if (map[yp + dy[i]][xp + dx[i]] >= 'A' && map[yp + dy[i]][xp + dx[i]] <= 'F') {
+				if (!find(key, map[yp + dy[i]][xp + dx[i]])) {	// 열쇠가 없으면,
 					result++;
 					cout << "AF없" << result << endl;
-					dfs(yp - dy[i], xp - dx[i], key, result);
+					break;
+					//dfs(yp - dy[i], xp - dx[i], key, result);
 				}
 				else {	// 열쇠가 있으면,
 					result++;
