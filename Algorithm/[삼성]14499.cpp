@@ -12,7 +12,7 @@ const int dx[] = { +1,-1,0,0 };
 
 void move_dice(int dir)
 {
-	int ndice[6];
+	int ndice[6];   // 3 밑면, 1 윗면
 
 	switch (dir) {
     case 0:
@@ -50,7 +50,7 @@ void move_dice(int dir)
     default:
         break;
 	}
-
+    
     for (int i = 0; i < 6; i++) {
         dice[i] = ndice[i];
     }
@@ -105,4 +105,3 @@ int main()
 
 - 복사: 바닥면, 출력: 윗면
 */
-
