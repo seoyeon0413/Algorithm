@@ -17,7 +17,7 @@ def dfs(x, y):
   if graph[x][y] == 0: # 현재 노드를 아직 방문하지 않았다면
     graph[x][y] = 1 # 해당 노드 방문 처리
     dfs(x-1, y) # 이 네개는 방문처리를 하기 위한 목적으로만 수행됨. return X
-    dfs(x, y-1)
+    dfs(x, y-1) # 여기서 return False해도 최종적으로 아래에 있는 return True가 리턴됨.
     dfs(x+1, y)
     dfs(x, y+1)
     return True
